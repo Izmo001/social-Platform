@@ -8,7 +8,12 @@ import helmet from "helmet";
 import morgan from "morgan";
 import path, { dirname } from "path";
 import { fileURLToPath } from "url";
-import {register} from "./controllers/auth.js"
+import authRoutes from "./routes/aut.js";
+import postRoutes from "./routes/posts.js"
+import userRoutes from "./routes/users.js"
+import {register} from "./controllers/auth.js";
+import { createpost } from "./controllers/posts.js";
+import { verifyToken } from "./middleware/auth.js";
 
 
 
@@ -39,6 +44,12 @@ import {register} from "./controllers/auth.js"
 
 /* ROUTES WITH FILES */
 app.post("/auth/register", upload.single("picture"), register);
+app.posts("/posts", verifyToken, upload.single("picture"), createpost) 
+
+/*ROUTES*/
+app.use("/auth", authRoutes); 
+app.use("/users", userRoutes);
+app.use("/posts", postRoutes);
 
  /* MONGOOSE SETUP */
   
