@@ -1,10 +1,10 @@
 import express from "express";
-import {getfeedPosts, getUsersPosts, likePost} from "/controllers/posts.js";
-import { verifyToken } from "../middleware/auth";
+import {getFeedPosts, getUsersPosts, likePost} from "../controllers/posts.js";
+import { verifyToken } from "../middleware/auth.js";
 
-const router = express.router();
+const router = express.Router();
 /* READ */
-router.get("/", verifyToken, getfeedPosts)
+router.get("/", verifyToken, getFeedPosts)
 router.get("/:userId/posts", verifyToken, getUsersPosts)
 
 
